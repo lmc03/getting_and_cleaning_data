@@ -1,0 +1,49 @@
+---
+title: "CodeBook"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Variables
+
+```{r variables}
+Xtrain <- read.table("~/work-rfiles/UCI HAR Dataset/train/X_train.txt", header = FALSE)
+ytrain <- read.table("~/work-rfiles/UCI HAR Dataset/train/y_train.txt", header = FALSE)
+subjecttrain <- read.table("~/work-rfiles/UCI HAR Dataset/train/subject_train.txt", header = FALSE)
+Xtest <- read.table("~/work-rfiles/UCI HAR Dataset/test/X_test.txt", header = FALSE)
+ytest <- read.table("~/work-rfiles/UCI HAR Dataset/test/y_test.txt", header = FALSE)
+subjecttest <- read.table("~/work-rfiles/UCI HAR Dataset/test/subject_test.txt", header = FALSE)
+features <- read.table("~/work-rfiles/UCI HAR Dataset/features.txt", header = FALSE)
+activitylabels <- read.table("~/work-rfiles/UCI HAR Dataset/activity_labels.txt", header = FALSE)
+```
+The variables above were used to store the data read from the respective text files. These would include **Xtrain, ytrain, subjecttrain, Xtest, ytest, subjecttest, features**, and **activitylabels**.
+
+```{r variables1}
+bindtrain <- cbind(ytrain, subjecttrain, Xtrain)
+bindtest <- cbind(ytest, subjecttest, Xtest)
+mergeddata <- rbind(bindtrain, bindtest)
+```
+**bindtrain** and **bindtest** are variables that store the column bind of the variables inside the parenthesis. **mergedata** then stores the row bind of both bindtrain and bindtest.
+
+**getNames** lists down the column names from mergeddata. **meansd** extracts measurements on the mean and standard deviation by creating a vector and only getting the value if it returns TRUE. **descriptivenames** uses descriptive activity names to name the activities in the data set.
+
+Lastly, **secondSet** is a variable that stores the mean of all of the columns for each activity and each subject.
+
+## R Code
+
+The assignment required to implement the following steps and was saved to an R file called **run_analysis.R**:
+
+1. Merges the training and the test sets to create one data set.
+
+2. Extracts only the measurements on the mean and standard deviation for each measurement. 
+
+3. Uses descriptive activity names to name the activities in the data set
+
+4. Appropriately labels the data set with descriptive variable names. 
+
+5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+
+After step 5, the resulting independent tidy data set was saved to a file called **secondSet.txt**.
